@@ -15,7 +15,7 @@ const { FiTrendingUp } = FiIcons;
 
 function App() {
   const [stockSymbols, setStockSymbols] = useState([
-    'AAPL', 'GOOGL', 'MSFT', 'AMZN', 'TSLA'
+    'GOOGL', 'MSFT', 'AMZN', 'TSLA'
   ]);
 
   const {
