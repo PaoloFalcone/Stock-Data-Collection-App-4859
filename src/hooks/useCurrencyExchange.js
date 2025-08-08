@@ -22,7 +22,13 @@ export const useCurrencyExchange = (fromCurrency, toCurrency, refreshInterval = 
       saveToLocalStorage(new Date().toISOString(), `exchange_${fromCurrency}_${toCurrency}_updated`);
     } catch (err) {
       console.error('Error in useCurrencyExchange:', err);
-      setError(err.message);
+      setError(err.message || 'Error fetching exchange rate data');
+      
+      // Try to use cached data if available when there's an error
+      const cachedData = loadFromLocalStorage(`exchange_${fromCurrency}_${toCurrency}`);
+      if (cachedData) {
+        setExchangeData(cachedData);
+      }
     } finally {
       setLoading(false);
     }

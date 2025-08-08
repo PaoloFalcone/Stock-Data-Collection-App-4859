@@ -1,32 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, {useState, useEffect} from 'react';
+import {motion} from 'framer-motion';
 import StockSymbolManager from './components/StockSymbolManager';
 import ScheduleStatus from './components/ScheduleStatus';
 import StockList from './components/StockList';
 import ActionButtons from './components/ActionButtons';
 import ExchangeRateWidget from './components/ExchangeRateWidget';
 import CurrencyConverter from './components/CurrencyConverter';
-import { useStockScheduler } from './hooks/useStockScheduler';
-import { convertToCSV, downloadCSV } from './services/csvService';
+import {useStockScheduler} from './hooks/useStockScheduler';
+import {convertToCSV, downloadCSV} from './services/csvService';
 import SafeIcon from './common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
+import softingLogo from './assets/softing-logo.jpg';
 
-const { FiTrendingUp } = FiIcons;
+const {FiTrendingUp} = FiIcons;
 
 function App() {
   const [stockSymbols, setStockSymbols] = useState([
     'GOOGL', 'MSFT', 'AMZN', 'TSLA'
   ]);
-
-  const {
-    isRunning,
-    lastRun,
-    nextRun,
-    history,
-    currentQuotes,
-    error,
-    runManually
-  } = useStockScheduler(stockSymbols);
+  
+  const {isRunning, lastRun, nextRun, history, currentQuotes, error, runManually} = useStockScheduler(stockSymbols);
 
   const handleDownloadHistory = () => {
     if (history.length === 0) return;
@@ -48,19 +41,25 @@ function App() {
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{opacity: 0, y: -20}}
+          animate={{opacity: 1, y: 0}}
           className="text-center mb-8"
         >
-          <div className="flex items-center justify-center space-x-3 mb-4">
-            <SafeIcon icon={FiTrendingUp} className="w-10 h-10 text-blue-600" />
+          <div className="flex flex-col items-center justify-center mb-4">
+            <div className="w-48 h-48 flex items-center justify-center mb-4">
+              <img 
+                src={softingLogo} 
+                alt="Softing Logo" 
+                className="w-full h-full object-contain" 
+                style={{maxWidth: '100%'}}
+              />
+            </div>
             <h1 className="text-4xl font-bold text-gray-800">
-              Stock Quotes Scheduler
+              Softing Stock Quotes Scheduler
             </h1>
           </div>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Acquisisce automaticamente le quotazioni azionarie ogni giorno alle 08:00 
-            e le salva in un file CSV per il monitoraggio e l'analisi.
+            Acquisisce automaticamente le quotazioni azionarie ogni giorno alle 08:00 e le salva in un file CSV per il monitoraggio e l'analisi.
           </p>
         </motion.div>
 
@@ -69,9 +68,9 @@ function App() {
           {/* Left Column */}
           <div className="space-y-6 lg:col-span-1">
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.1 }}
+              initial={{opacity: 0, x: -20}}
+              animate={{opacity: 1, x: 0}}
+              transition={{delay: 0.1}}
             >
               <StockSymbolManager
                 symbols={stockSymbols}
@@ -80,9 +79,9 @@ function App() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.2 }}
+              initial={{opacity: 0, x: -20}}
+              animate={{opacity: 1, x: 0}}
+              transition={{delay: 0.2}}
             >
               <ScheduleStatus
                 isRunning={isRunning}
@@ -93,9 +92,9 @@ function App() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
+              initial={{opacity: 0, x: -20}}
+              animate={{opacity: 1, x: 0}}
+              transition={{delay: 0.3}}
             >
               <ActionButtons
                 onRunManually={runManually}
@@ -104,21 +103,21 @@ function App() {
                 hasData={history.length > 0}
               />
             </motion.div>
-            
+
             {/* Exchange Rate Widget */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
+              initial={{opacity: 0, x: -20}}
+              animate={{opacity: 1, x: 0}}
+              transition={{delay: 0.4}}
             >
               <ExchangeRateWidget />
             </motion.div>
-            
+
             {/* Currency Converter */}
             <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.5 }}
+              initial={{opacity: 0, x: -20}}
+              animate={{opacity: 1, x: 0}}
+              transition={{delay: 0.5}}
             >
               <CurrencyConverter />
             </motion.div>
@@ -127,21 +126,18 @@ function App() {
           {/* Right Column - Expanded to 2 columns */}
           <div className="space-y-6 lg:col-span-2">
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
+              initial={{opacity: 0, x: 20}}
+              animate={{opacity: 1, x: 0}}
+              transition={{delay: 0.4}}
             >
-              <StockList
-                stocks={currentQuotes}
-                title="Quotazioni Attuali"
-              />
+              <StockList stocks={currentQuotes} title="Quotazioni Attuali" />
             </motion.div>
 
             {history.length > 0 && (
               <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.5 }}
+                initial={{opacity: 0, x: 20}}
+                animate={{opacity: 1, x: 0}}
+                transition={{delay: 0.5}}
                 className="bg-white rounded-lg shadow-md p-6"
               >
                 <h3 className="text-lg font-semibold text-gray-800 mb-4">
@@ -174,14 +170,13 @@ function App() {
 
         {/* Footer */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
+          initial={{opacity: 0}}
+          animate={{opacity: 1}}
+          transition={{delay: 0.6}}
           className="mt-12 text-center text-gray-500 text-sm"
         >
           <p>
-            I dati sono forniti da Alpha Vantage. Per dati in tempo reale, 
-            registrati per una chiave API gratuita.
+            I dati sono forniti da Alpha Vantage. Per dati in tempo reale, registrati per una chiave API gratuita.
           </p>
         </motion.div>
       </div>
