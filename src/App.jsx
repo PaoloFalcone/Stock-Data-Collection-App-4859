@@ -4,6 +4,8 @@ import StockSymbolManager from './components/StockSymbolManager';
 import ScheduleStatus from './components/ScheduleStatus';
 import StockList from './components/StockList';
 import ActionButtons from './components/ActionButtons';
+import ExchangeRateWidget from './components/ExchangeRateWidget';
+import CurrencyConverter from './components/CurrencyConverter';
 import { useStockScheduler } from './hooks/useStockScheduler';
 import { convertToCSV, downloadCSV } from './services/csvService';
 import SafeIcon from './common/SafeIcon';
@@ -63,9 +65,9 @@ function App() {
         </motion.div>
 
         {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column */}
-          <div className="space-y-6">
+          <div className="space-y-6 lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
@@ -102,10 +104,28 @@ function App() {
                 hasData={history.length > 0}
               />
             </motion.div>
+            
+            {/* Exchange Rate Widget */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              <ExchangeRateWidget />
+            </motion.div>
+            
+            {/* Currency Converter */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5 }}
+            >
+              <CurrencyConverter />
+            </motion.div>
           </div>
 
-          {/* Right Column */}
-          <div className="space-y-6">
+          {/* Right Column - Expanded to 2 columns */}
+          <div className="space-y-6 lg:col-span-2">
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
